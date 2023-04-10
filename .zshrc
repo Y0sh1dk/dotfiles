@@ -15,6 +15,9 @@ unsetopt nomatch
 # Nicer prompt.
 export PS1=$'\n'"%F{green} %*%F %3~ %F{white}"$'\n'"$ "
 
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/yoshi/.oh-my-zsh"
+
 # Enable plugins.
 plugins=(
   git
@@ -25,6 +28,8 @@ plugins=(
   zsh-syntax-highlighting
   zsh-autosuggestions
   )
+
+source $ZSH/oh-my-zsh.sh
 
 # Custom $PATH with extra locations.
 export PATH=$HOME/Library/Python/3.8/bin:/opt/homebrew/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/go/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
