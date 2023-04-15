@@ -1,6 +1,7 @@
 [user]
   name = Yosiah de Koeyer
   email = dev@yosiahdekoeyer.dev
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFtU1bpIdTAVyBQuNQ5eL/7AiAmwt3kvxYspwFsyOKBM
 [core]
   editor = vi
   excludesfile = ~/.gitignore
@@ -34,3 +35,9 @@
   s = status
 [pull]
 	rebase = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
