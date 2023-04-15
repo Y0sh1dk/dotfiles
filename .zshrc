@@ -1,4 +1,3 @@
-
 # Colors.
 unset LSCOLORS
 export CLICOLOR=1
@@ -22,7 +21,7 @@ plugins=(
   history-substring-search
   zsh-syntax-highlighting
   zsh-autosuggestions
-  )
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -35,11 +34,11 @@ export TIMEFMT=$'\nreal\t%*E\nuser\t%*U\nsys\t%*S'
 # Set architecture-specific brew share path.
 arch_name="$(uname -m)"
 if [ "${arch_name}" = "x86_64" ]; then
-    share_path="/usr/local/share"
+  share_path="/usr/local/share"
 elif [ "${arch_name}" = "arm64" ]; then
-    share_path="/opt/homebrew/share"
+  share_path="/opt/homebrew/share"
 else
-    echo "Unknown architecture: ${arch_name}"
+  echo "Unknown architecture: ${arch_name}"
 fi
 
 # Allow history search via up/down keys.
@@ -47,14 +46,12 @@ bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
 # Include alias file (if present) containing aliases for ssh, etc.
-if [ -f ~/.aliases ]
-then
+if [ -f ~/.aliases ]; then
   source ~/.aliases
 fi
 
 # Include alias file (if present) containing aliases for ssh, etc.
-if [ -f ~/.functions ]
-then
+if [ -f ~/.functions ]; then
   source ~/.functions
 fi
 
