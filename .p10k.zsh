@@ -74,12 +74,20 @@
     newline                   # \n
   )
 
+  # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
+  typeset -g POWERLEVEL9K_MODE=nerdfont-complete
+  # When set to `moderate`, some icons will have an extra space after them. This is meant to avoid
+  # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.
+  typeset -g POWERLEVEL9K_ICON_PADDING=none
+
   ##########################[ terraform_version ] ##########################[
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_SHOW_ON_COMMAND='terraform|tf'
+  typeset -g POWERLEVEL9K_TERRAFORM_VERSION_VISUAL_IDENTIFIER_EXPANSION='tf'
 
   ##########################[ kubecontext ]###########################
   typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile|flux|fluxctl|stern|kubeseal|skaffold|kubent|kubecolor'
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND=134
+  typeset -g POWERLEVEL9K_KUBECONTEXT_VISUAL_IDENTIFIER_EXPANSION=$'\U2388'$s
 
   ##########################[ status: exit code of the last command ]###########################
   # Enable OK_PIPE, ERROR_PIPE and ERROR_SIGNAL status states to allow us to enable, disable and
