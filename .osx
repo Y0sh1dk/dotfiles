@@ -87,6 +87,9 @@ defaults write NSGlobalDomain KeyRepeat -int 1
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+# Scroll direction
+defaults write com.apple.swipescrolldirection -bool false
+
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
@@ -179,7 +182,7 @@ defaults write com.apple.dock showhidden -bool true
 defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # Enable dock autohide
-defaults write com.apple.dock "autohide" -bool "true"
+defaults write com.apple.dock autohide -bool true
 
 # Hot corners
 # Possible values:
