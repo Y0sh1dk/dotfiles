@@ -192,6 +192,9 @@ defaults write com.apple.universalaccess reduceTransparency -bool true
 # Enable dock autohide
 defaults write com.apple.dock autohide -bool true
 
+# Autohide menu bar
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+
 # Hot corners
 # Possible values:
 #  0: no-op
