@@ -2,6 +2,8 @@
 
 My dotfiles :)
 
+Heavily inspired by: https://github.com/geerlingguy/dotfiles
+
 ## Files
 
 The following files are included in this repository:
