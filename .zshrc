@@ -54,6 +54,11 @@ if [ -f ~/.functions ]; then
   source ~/.functions
 fi
 
+# Include ANZ specific config
+if [ -f ~/.anz ]; then
+  source ~/.anz
+fi
+
 # Completions.
 autoload -Uz compinit && compinit
 # Case insensitive.
