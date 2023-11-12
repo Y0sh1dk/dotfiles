@@ -44,6 +44,14 @@ fi
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
+# Completions.
+autoload -Uz compinit && compinit
+# Case insensitive.
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+
+# Once a week
+export HOMEBREW_AUTO_UPDATE_SECS=604800
+
 # Include alias file (if present) containing aliases for ssh, etc.
 [[ ! -f ~/.aliases ]] || source ~/.aliases
 
@@ -52,14 +60,6 @@ bindkey "^[[B" history-substring-search-down
 
 # Include ANZ specific config
 [[ ! -f ~/.anz ]] || source ~/.anz
-
-# Completions.
-autoload -Uz compinit && compinit
-# Case insensitive.
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
-
-# Once a week
-export HOMEBREW_AUTO_UPDATE_SECS=604800
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
