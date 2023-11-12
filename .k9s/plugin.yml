@@ -102,14 +102,3 @@ plugin:
     args:
       - -c
       - "watch -n 5 kubectl get events --context $CONTEXT --namespace $NAMESPACE --field-selector involvedObject.name=$NAME"
-  yoshi-test:
-    shortCut: Shift-N
-    confirm: false
-    description: Yoshi test
-    scopes:
-      - all
-    command: sh
-    background: false
-    args:
-      - -c
-      - "watch -n 5 kubectl get events --context $CONTEXT --namespace $NAMESPACE --field-selector involvedObject.name=$NAME"
