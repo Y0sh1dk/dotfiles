@@ -52,6 +52,9 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}
 # Once a week
 export HOMEBREW_AUTO_UPDATE_SECS=604800
 
+# K9s config
+export K9SCONFIG=$HOME/.k9s
+
 # Include alias file (if present) containing aliases for ssh, etc.
 [[ ! -f ~/.aliases ]] || source ~/.aliases
 
