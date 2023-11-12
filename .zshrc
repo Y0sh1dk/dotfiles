@@ -45,30 +45,21 @@ bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
 # Include alias file (if present) containing aliases for ssh, etc.
-if [ -f ~/.aliases ]; then
-  source ~/.aliases
-fi
+[[ ! -f ~/.aliases ]] || source ~/.aliases
 
 # Include alias file (if present) containing aliases for ssh, etc.
-if [ -f ~/.functions ]; then
-  source ~/.functions
-fi
+[[ ! -f ~/.functions ]] || source ~/.functions
 
 # Include ANZ specific config
-if [ -f ~/.anz ]; then
-  source ~/.anz
-fi
+[[ ! -f ~/.anz ]] || source ~/.anz
 
 # Completions.
 autoload -Uz compinit && compinit
 # Case insensitive.
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 
-# Tell homebrew to not autoupdate every single time I run it (just once a week).
+# Once a week
 export HOMEBREW_AUTO_UPDATE_SECS=604800
-
-# Allow Composer to use almost as much RAM as Chrome.
-export COMPOSER_MEMORY_LIMIT=-1
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

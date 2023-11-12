@@ -1,7 +1,7 @@
 [user]
   name = Yosiah de Koeyer
   email = dev@yosiahdekoeyer.dev
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFtU1bpIdTAVyBQuNQ5eL/7AiAmwt3kvxYspwFsyOKBM
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFtU1bpIdTAVyBQuNQ5eL/7AiAmwt3kvxYspwFsyOKBM
 [core]
   editor = vi
   excludesfile = ~/.gitignore
@@ -19,7 +19,7 @@
   helper = osxkeychain
 [push]
   default = simple
-	autoSetupRemote = true
+  autoSetupRemote = true
 [merge]
   tool = kdiff3
 [difftool]
@@ -35,10 +35,10 @@
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   s = status
 [pull]
-	rebase = true
+  rebase = true
 [gpg]
-	format = ssh
+  format = ssh
 [gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+  program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 [commit]
-	gpgsign = true
+  gpgsign = true
