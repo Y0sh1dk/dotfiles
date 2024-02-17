@@ -66,6 +66,7 @@
     command_execution_time    # previous command duration
     virtualenv                # python virtual environment
     context                   # user@host
+    go_version
     kubecontext
     terraform
     terraform_version
@@ -73,19 +74,25 @@
     # =========================[ Line #2 ]=========================
     newline                   # \n
   )
-
+  
   # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
   # When set to `moderate`, some icons will have an extra space after them. This is meant to avoid
   # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.
   typeset -g POWERLEVEL9K_ICON_PADDING=none
 
+  #######################[ go_version: go version (https://golang.org) ]########################
+  # Go version color.
+  typeset -g POWERLEVEL9K_GO_VERSION_FOREGROUND=37
+  typeset -g POWERLEVEL9K_GO_VERSION_PROJECT_ONLY=false
+  typeset -g POWERLEVEL9K_GO_VERSION_SHOW_ON_COMMAND='go'
+
   ##########################[ terraform_version ] ##########################[
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_SHOW_ON_COMMAND='terraform|tf'
   typeset -g POWERLEVEL9K_TERRAFORM_VERSION_VISUAL_IDENTIFIER_EXPANSION='tf'
 
   ##########################[ kubecontext ]###########################
-  typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile|flux|fluxctl|stern|kubeseal|skaffold|kubent|kubecolor'
+  typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile|flux|fluxctl|stern|kubeseal|skaffold|kubent|kubecolor|kind|kuttl'
   typeset -g POWERLEVEL9K_KUBECONTEXT_DEFAULT_FOREGROUND=134
   typeset -g POWERLEVEL9K_KUBECONTEXT_VISUAL_IDENTIFIER_EXPANSION=$'\U2388'$s
 
