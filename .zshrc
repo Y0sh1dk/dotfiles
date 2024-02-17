@@ -18,6 +18,7 @@ plugins=(
   history
   kubectl
   history-substring-search
+  per-directory-history
   zsh-syntax-highlighting
   zsh-autosuggestions
 )

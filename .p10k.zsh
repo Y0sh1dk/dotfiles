@@ -70,6 +70,7 @@
     kubecontext
     terraform
     terraform_version
+    per_directory_history
     time                      # current time
     # =========================[ Line #2 ]=========================
     newline                   # \n
@@ -80,6 +81,11 @@
   # When set to `moderate`, some icons will have an extra space after them. This is meant to avoid
   # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.
   typeset -g POWERLEVEL9K_ICON_PADDING=none
+
+  ######[ per_directory_history: Oh My Zsh per-directory-history local/global indicator ]#######
+  # Color when using local/global history.
+  typeset -g POWERLEVEL9K_PER_DIRECTORY_HISTORY_LOCAL_FOREGROUND=135
+  typeset -g POWERLEVEL9K_PER_DIRECTORY_HISTORY_GLOBAL_FOREGROUND=130
 
   #######################[ go_version: go version (https://golang.org) ]########################
   # Go version color.
