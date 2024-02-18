@@ -68,6 +68,7 @@
     context                   # user@host
     go_version
     kubecontext
+    gcloud
     terraform
     terraform_version
     per_directory_history
@@ -81,6 +82,9 @@
   # When set to `moderate`, some icons will have an extra space after them. This is meant to avoid
   # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.
   typeset -g POWERLEVEL9K_ICON_PADDING=none
+
+  # gcloud
+  typeset -g POWERLEVEL9K_GCLOUD_SHOW_ON_COMMAND='gcloud|gcs|terraform|terragrunt'
 
   ######[ per_directory_history: Oh My Zsh per-directory-history local/global indicator ]#######
   # Color when using local/global history.
