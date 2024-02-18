@@ -56,8 +56,6 @@ export HOMEBREW_AUTO_UPDATE_SECS=604800
 # K9s config
 export K9SCONFIG=$HOME/.k9s
 
-export REQUESTS_CA_BUNDLE=/opt/homebrew/etc/openssl@3/cert.pem
-
 # Include alias file (if present) containing aliases for ssh, etc.
 [[ ! -f ~/.aliases ]] || source ~/.aliases
 
