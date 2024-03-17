@@ -13,10 +13,6 @@ export ZSH="${HOME}/.oh-my-zsh"
 
 # Enable plugins.
 plugins=(
-  git
-  brew
-  history
-  kubectl
   history-substring-search
   per-directory-history
   zsh-syntax-highlighting
