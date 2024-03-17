@@ -56,10 +56,10 @@ export HOMEBREW_AUTO_UPDATE_SECS=604800
 # K9s config
 export K9SCONFIG=$HOME/.k9s
 
-# Include alias file (if present) containing aliases for ssh, etc.
+# Include alias file (if present)
 [[ ! -f ~/.aliases ]] || source ~/.aliases
 
-# Include alias file (if present) containing aliases for ssh, etc.
+# Include funcion file (if present)
 [[ ! -f ~/.functions ]] || source ~/.functions
 
 # Include ANZ specific config
