@@ -2,3 +2,5 @@
 *.LSOverride
 Thumbs.db
 .bundle
+.ssh/known_hosts
+.ssh/known_hosts.old
