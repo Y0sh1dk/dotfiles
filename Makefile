@@ -2,8 +2,27 @@
 
 
 .PHONY: all
-all: brew-install create-symlinks ## Do everything
+all: bootstrap brew-install onepassword create-symlinks ## Do everything
 	@echo "Done!"
+
+########################################################################
+#                              Bootstrap                               #
+########################################################################
+
+.PHONY: bootstrap
+bootstrap: bootstrap-prerequisites bootstrap-homebrew ## Bootstrap all
+
+.PHONY: bootstrap-prerequisites
+bootstrap-prerequisites: ## Setup bootstrap prerequisites
+	@xcode-select --install || true
+	@echo "A" | /usr/sbin/softwareupdate --install-rosetta
+
+.PHONY: bootstrap-homebrew
+bootstrap-homebrew: ## Install homebrew
+	@if [ $$(uname) = "Darwin" ] && [ "$(shell which brew)" = "" ]; then \
+		NONINTERACTIVE=1 /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+		echo "Installed Homebrew."; \
+	fi
 
 ########################################################################
 #                                 Brew                                 #
