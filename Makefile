@@ -2,7 +2,7 @@
 
 
 .PHONY: all
-all: bootstrap homebrew shell vscode onepassword ssh osx git tools ## Do everything
+all: bootstrap homebrew shell vscode onepassword ssh osx git tools post ## Do everything
 	@echo "Done!"
 
 ########################################################################
@@ -36,7 +36,6 @@ homebrew-install:
 	@if [ $$(uname) = "Darwin" ] && [ "$(shell which brew)" = "" ]; then \
 		NONINTERACTIVE=1 /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
 		(echo; echo 'eval "$$(/opt/homebrew/bin/brew shellenv)"') >> $(HOME)/.zprofile; \
-		source $(HOME)/.zprofile; \
 		echo "Installed Homebrew."; \
 	fi
 
@@ -47,11 +46,11 @@ homebrew-symlinks:
 
 .PHONY: homebrew-bundle-dump
 homebrew-bundle-dump:
-	@brew bundle dump --force --file=$(HOME)/Brewfile
+	@/opt/homebrew/bin/brew bundle dump --force --file=$(HOME)/Brewfile
 
 .PHONY: homebrew-bundle-install
 homebrew-bundle-install:
-	@brew bundle install --file=$(HOME)/Brewfile
+	@/opt/homebrew/bin/brew bundle install --file=$(HOME)/Brewfile
 
 ########################################################################
 #                                 Shell                                #
@@ -143,7 +142,7 @@ ssh: ssh-symlinks ## Setup SSH
 ########################################################################
 
 .PHONY: osx
-osx: osx-symlinks osx-setup ## Setup osx
+osx: osx-symlinks osx-setup osx-dock ## Setup osx
 	@echo "OSX setup!"
 
 .PHONY: osx-symlinks
@@ -154,6 +153,10 @@ osx-symlinks:
 .PHONY: osx-setup
 osx-setup:
 	@sudo $(HOME)/.osx
+
+.PHONY: osx-dock
+osx-dock:
+	@/opt/homebrew/bin/dockutil --remove all
 
 ########################################################################
 #                                 git                                  #
@@ -178,6 +181,14 @@ tools: tools-symlinks ## Setup other tools
 .PHONY: tools-symlinks
 tools-symlinks:
 	@ln -sf $(PWD)/.vimrc $(HOME)/.vimrc
+
+########################################################################
+#                                 post                                 #
+########################################################################
+
+.PHONY: post
+post: ## Post install tasks
+	@git remote set-url origin git@github.com:y0sh1dk/dotfiles.git
 
 
 ########################################################################
