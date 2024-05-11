@@ -8,6 +8,9 @@
   "[dockerfile]": {
     "editor.defaultFormatter": "ms-azuretools.vscode-docker"
   },
+  "[terraform]": {
+    "editor.formatOnSave": true
+  },
 
   "editor.insertSpaces": true,
   "files.trimFinalNewlines": true,
