@@ -116,7 +116,7 @@ onepassword-symlinks:
 ########################################################################
 
 .PHONY: vscode
-vscode: ## Setup vscode
+vscode: vscode-symlinks ## Setup vscode
 	@echo "vscode setup!"
 
 .PHONY: vscode-symlinks
