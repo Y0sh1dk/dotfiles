@@ -133,6 +133,7 @@ ssh: ssh-symlinks ## Setup SSH
 	@echo "SSH setup!"
 
 .PHONY: ssh-symlinks
+ssh-symlinks:
 	@ln -sf $(PWD)/.ssh/ $(HOME)
 	@chmod 700 $(HOME)/.ssh
 	@chmod 600 $(HOME)/.ssh/*
