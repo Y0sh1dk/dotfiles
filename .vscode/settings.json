@@ -1,0 +1,52 @@
+{
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+
+  "editor.insertSpaces": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+
+  "editor.renderWhitespace": "all",
+  "gitlens.codeLens.enabled": true,
+  "indentRainbow.indicatorStyle": "light",
+  "indentRainbow.lightIndicatorStyleLineWidth": 3,
+  "window.zoomLevel": 1,
+  "workbench.iconTheme": "material-icon-theme",
+
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always",
+      "source.fixAll": "always"
+    }
+  },
+
+  "go.useLanguageServer": true,
+  "gopls": {
+    "ui.semanticTokens": true,
+    "ui.completion.usePlaceholders": true,
+    "formatting.gofumpt": true,
+    "ui.codelenses": {
+      "gc_details": true,
+      "tidy": true,
+    }
+  },
+
+  "go.lintTool": "golangci-lint",
+  "go.lintOnSave": "workspace",
+  "go.lintFlags": ["--fast", "--allow-parallel-runners"],
+  "go.coverOnSave": false,
+}
