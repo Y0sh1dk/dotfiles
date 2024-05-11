@@ -2,7 +2,7 @@
 
 
 .PHONY: all
-all: bootstrap brew-install onepassword create-symlinks ## Do everything
+all: bootstrap homebrew shell vscode onepassword ssh osx git tools ## Do everything
 	@echo "Done!"
 
 ########################################################################
@@ -10,69 +10,179 @@ all: bootstrap brew-install onepassword create-symlinks ## Do everything
 ########################################################################
 
 .PHONY: bootstrap
-bootstrap: bootstrap-prerequisites bootstrap-homebrew ## Bootstrap all
+bootstrap: bootstrap-xcode-tools bootstrap-rosetta ## Bootstrap
+	@echo "Bootstrap done!"
 
-.PHONY: bootstrap-prerequisites
-bootstrap-prerequisites: ## Setup bootstrap prerequisites
+.PHONY: bootstrap-xcode-tools
+bootstrap-xcode-tools:
 	@xcode-select --install || true
-	@echo "A" | /usr/sbin/softwareupdate --install-rosetta
 
-.PHONY: bootstrap-homebrew
-bootstrap-homebrew: ## Install homebrew
-	@if [ $$(uname) = "Darwin" ] && [ "$(shell which brew)" = "" ]; then \
-		NONINTERACTIVE=1 /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
-		echo "Installed Homebrew."; \
+.PHONY: bootstrap-rosetta
+bootstrap-rosetta:
+	@if ! /usr/bin/pgrep -q oahd; then \
+		echo "A" | /usr/sbin/softwareupdate --install-rosetta; \
 	fi
 
 ########################################################################
-#                                 Brew                                 #
+#                               Homebrew                               #
 ########################################################################
 
-.PHONY: brew-dump
-brew-dump: ## Dump brew packages
+.PHONY: homebrew
+homebrew: homebrew-install homebrew-symlinks homebrew-bundle-install ## Setup homebrew
+	@echo "Homebrew setup!"
+
+.PHONY: homebrew-install
+homebrew-install:
+	@if [ $$(uname) = "Darwin" ] && [ "$(shell which brew)" = "" ]; then \
+		NONINTERACTIVE=1 /bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+		(echo; echo 'eval "$$(/opt/homebrew/bin/brew shellenv)"') >> $(HOME)/.zprofile; \
+		source $(HOME)/.zprofile; \
+		echo "Installed Homebrew."; \
+	fi
+
+.PHONY: homebrew-symlinks
+homebrew-symlinks:
+	@ln -sf $(PWD)/Brewfile $(HOME)/Brewfile
+	@ln -sf $(PWD)/Brewfile.lock.json $(HOME)/Brewfile.lock.json
+
+.PHONY: homebrew-bundle-dump
+homebrew-bundle-dump:
 	@brew bundle dump --force --file=$(HOME)/Brewfile
 
-.PHONY: brew-install
-brew-install: ## Install brew packages
+.PHONY: homebrew-bundle-install
+homebrew-bundle-install:
 	@brew bundle install --file=$(HOME)/Brewfile
+
+########################################################################
+#                                 Shell                                #
+########################################################################
+
+.PHONY: shell
+shell: shell-oh-my-zsh shell-oh-my-zsh-plugins shell-symlinks ## Setup shell
+	@echo "Shell setup!"
+
+.PHONY: shell-oh-my-zsh
+shell-oh-my-zsh:
+	@if [ ! -d $(HOME)/.oh-my-zsh ]; then \
+		/bin/sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; \
+	fi
+
+.PHONY: shell-oh-my-zsh-plugins
+shell-oh-my-zsh-plugins:
+	@if [ ! -d $(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]; then \
+		git clone https://github.com/zsh-users/zsh-autosuggestions $(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
+	else \
+		cd $(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git fetch && git pull; \
+	fi
+	@if [ ! -d $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then \
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; \
+	else \
+		cd $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git fetch && git pull; \
+	fi
+	@if [ ! -d $(HOME)/.oh-my-zsh/custom/plugins/zsh-history-substring-search ]; then \
+		git clone https://github.com/zsh-users/zsh-history-substring-search $(HOME)/.oh-my-zsh/custom/plugins/zsh-history-substring-search; \
+	else \
+		cd $(HOME)/.oh-my-zsh/custom/plugins/zsh-history-substring-search && git fetch && git pull; \
+	fi
+	@if [ ! -d $(HOME)/.oh-my-zsh/custom/themes/powerlevel10k ]; then \
+		git clone https://github.com/romkatv/powerlevel10k $(HOME)/.oh-my-zsh/custom/themes/powerlevel10k; \
+	else \
+		cd $(HOME)/.oh-my-zsh/custom/themes/powerlevel10k && git fetch && git pull; \
+	fi
+
+.PHONY: shell-symlinks
+shell-symlinks:
+	@ln -sf $(PWD)/.zlogin $(HOME)/.zlogin
+	@ln -sf $(PWD)/.zshrc $(HOME)/.zshrc
+	@ln -sf $(PWD)/.p10k.zsh $(HOME)/.p10k.zsh
+	@ln -sf $(PWD)/com.googlecode.iterm2.plist $(HOME)/com.googlecode.iterm2.plist
+	@ln -sf $(PWD)/.inputrc $(HOME)/.inputrc
+	@ln -sf $(PWD)/.aliases $(HOME)/.aliases
+	@ln -sf $(PWD)/.gitignore $(HOME)/.gitignore
 
 ########################################################################
 #                               1Password                              #
 ########################################################################
 
 .PHONY: onepassword
-onepassword: ## Setup 1password ssh-agent
+onepassword: onepassword-symlinks ## Setup 1password ssh-agent
+	@echo "onepassword setup!"
+
+.PHONY: onepassword-symlinks
+onepassword-symlinks:
 	@mkdir -p $(HOME)/.1password
 	@ln -sf $(HOME)/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock $(HOME)/.1password/agent.sock
+########################################################################
+#                                vscode                                #
+########################################################################
+
+.PHONY: vscode
+vscode: ## Setup vscode
+	@echo "vscode setup!"
+
+.PHONY: vscode-symlinks
+vscode-symlinks:
+	@ln -sf $(shell pwd)/.vscode/settings.json $(HOME)/Library/Application\ Support/Code/User/settings.json
+	@ln -sf $(shell pwd)/.vscode/keybindings.json $(HOME)/Library/Application\ Support/Code/User/keybindings.json
 
 ########################################################################
-#                               symlinks                               #
+#                                 ssh                                  #
 ########################################################################
 
-.PHONY: create-symlinks
-create-symlinks: ## Create symlinks
-	@echo "Creating symlinks..."
-	@ln -sf $(PWD)/.aliases $(HOME)/.aliases
-	@ln -sf $(PWD)/.gitconfig $(HOME)/.gitconfig
-	@ln -sf $(PWD)/.gitignore $(HOME)/.gitignore
-	@ln -sf $(PWD)/.inputrc $(HOME)/.inputrc
-	@ln -sf $(PWD)/.osx $(HOME)/.osx
-	@ln -sf $(PWD)/.p10k.zsh $(HOME)/.p10k.zsh
-	@ln -sf $(PWD)/.vimrc $(HOME)/.vimrc
-	@ln -sf $(PWD)/.zlogin $(HOME)/.zlogin
-	@ln -sf $(PWD)/.zshrc $(HOME)/.zshrc
-	@ln -sf $(PWD)/Brewfile $(HOME)/Brewfile
-	@ln -sf $(PWD)/Brewfile.lock.json $(HOME)/Brewfile.lock.json
-	@ln -sf $(PWD)/com.googlecode.iterm2.plist $(HOME)/com.googlecode.iterm2.plist
-	@ln -sf $(PWD)/wallpaper.jpg $(HOME)/wallpaper.jpg
+.PHONY: ssh
+ssh: ssh-symlinks ## Setup SSH
+	@echo "SSH setup!"
+
+.PHONY: ssh-symlinks
 	@ln -sf $(PWD)/.ssh/ $(HOME)
 	@chmod 700 $(HOME)/.ssh
 	@chmod 600 $(HOME)/.ssh/*
 
-	@ln -sf $(PWD)/.vscode/settings.json $(HOME)/Library/Application\ Support/Code/User/settings.json
-	@ln -sf $(PWD)/.vscode/keybindings.json $(HOME)/Library/Application\ Support/Code/User/keybindings.json
-	@ln -sf $(PWD)/.vscode/snippets/ $(HOME)/Library/Application\ Support/Code/User
-	@echo "Symlinks created!"
+########################################################################
+#                                 osx                                  #
+########################################################################
+
+.PHONY: osx
+osx: osx-symlinks osx-setup ## Setup osx
+	@echo "OSX setup!"
+
+.PHONY: osx-symlinks
+osx-symlinks:
+	@ln -sf $(PWD)/.osx $(HOME)/.osx
+	@ln -sf $(PWD)/wallpaper.jpg $(HOME)/wallpaper.jpg
+
+.PHONY: osx-setup
+osx-setup:
+	@sudo $(HOME)/.osx
+
+########################################################################
+#                                 git                                  #
+########################################################################
+
+.PHONY: git
+git: git-symlinks ## Setup git
+	@echo "Git setup!"
+
+.PHONY: git-symlinks
+git-symlinks:
+	@ln -sf $(PWD)/.gitconfig $(HOME)/.gitconfig
+
+########################################################################
+#                                 tools                                #
+########################################################################
+
+.PHONY: tools
+tools: tools-symlinks ## Setup other tools
+	@echo "Tools setup!"
+
+.PHONY: tools-symlinks
+tools-symlinks:
+	@ln -sf $(PWD)/.vimrc $(HOME)/.vimrc
+
+
+########################################################################
+#                                  help                                #
+########################################################################
 
 help: ## show help message
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n"} /^[$$()% a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
