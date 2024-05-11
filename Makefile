@@ -24,7 +24,7 @@ brew-install: ## Install brew packages
 .PHONY: onepassword
 onepassword: ## Setup 1password ssh-agent
 	@mkdir -p $(HOME)/.1password
-	@ln -sf $(PWD)/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock $(HOME)/.1password/agent.sock
+	@ln -sf $(HOME)/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock $(HOME)/.1password/agent.sock
 
 ########################################################################
 #                               symlinks                               #
@@ -47,6 +47,8 @@ create-symlinks: ## Create symlinks
 	@ln -sf $(PWD)/com.googlecode.iterm2.plist $(HOME)/com.googlecode.iterm2.plist
 	@ln -sf $(PWD)/wallpaper.jpg $(HOME)/wallpaper.jpg
 	@ln -sf $(PWD)/.ssh/ $(HOME)
+	@chmod 700 $(HOME)/.ssh
+	@chmod 600 $(HOME)/.ssh/*
 
 	@ln -sf $(PWD)/.vscode/settings.json $(HOME)/Library/Application\ Support/Code/User/settings.json
 	@ln -sf $(PWD)/.vscode/keybindings.json $(HOME)/Library/Application\ Support/Code/User/keybindings.json
