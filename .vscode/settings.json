@@ -16,6 +16,7 @@
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
+  "http.proxyStrictSSL": false,
 
   "editor.renderWhitespace": "all",
   "gitlens.codeLens.enabled": true,
